@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: /app
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:
+        patterns: ["*"]
+        update-types: ["patch", "minor"]
+    # Major version bumps are deliberate framework upgrades, not auto-PRs.
+    # Security updates are unaffected and can still bump majors when needed.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: docker
+    directory: /app
+    schedule:
+      interval: monthly

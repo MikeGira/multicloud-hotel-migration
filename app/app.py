@@ -135,7 +135,8 @@ def search():
     '''
     Search
     '''
-    name_search = request.args.get('name')
+    # SQLAlchemy 2 rejects .contains(None); default to '' when no query given
+    name_search = request.args.get('name') or ''
     all_records = Record.query.filter(
         Record.guest_name.contains(name_search)
         ).order_by(Record.guest_name).all()
